@@ -1,6 +1,7 @@
 const router=require("express").Router();
 const student=require("../../models/").student;
 const classRoom=require("../../models").classroom;
+const teacher =require("../../models").teacher;
 
 
 router.post("/add",async(req,res)=>{
@@ -53,9 +54,9 @@ router.post("/add",async(req,res)=>{
 router.get("/viewStudent",async(req,res)=>{
     try {
         const view=await student.find({})
-        .populate({path:"teacher",select:"name contact -_id"})
-        .populate({path:"classRoomId",select:"classRoomName -_id"})
-        .select()
+        .populate({path:'classRoomId',select:"-_id classRoomName"})
+        .populate({path:"teacherId",select:"-_id contact name"})
+        .select({_id:0,name:1})
         res.json(view)
     } catch (error) {
         res.json({msg:error})

@@ -10,7 +10,13 @@ const studentSchema= new mongoose.Schema({
         required:true
     },
     classRoomId:{
-        type:String,
+        type:mongoose.Types.ObjectId,
+        ref:"classrooms",
+        required:true
+    },
+    teacherId:{
+        type:mongoose.Types.ObjectId,
+        ref:"teachers",
         required:true
     },
     address:{
@@ -19,10 +25,6 @@ const studentSchema= new mongoose.Schema({
     },
     contact:{
         type:Number,
-        required:true
-    },
-    teacher:{
-        type:String,
         required:true
     }
 },{timestamps:true});
